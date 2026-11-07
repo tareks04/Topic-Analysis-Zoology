@@ -17,7 +17,7 @@
 /* Chapter summary: one shared container with a simple vertical, boxless list. */
 .chapter-analysis-panel{padding:18px}
 .chapter-analysis-list{display:flex;flex-direction:column;grid-template-columns:none;gap:0;margin-top:14px}
-.chapter-analysis-row{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(55px,.9fr) 62px;align-items:center;gap:12px;width:100%;min-width:0;text-align:left;color:var(--text);background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:11px 2px;transition:color .16s ease;box-shadow:none}
+.chapter-analysis-row{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(55px,.9fr) 62px 66px;align-items:center;gap:12px;width:100%;min-width:0;text-align:left;color:var(--text);background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:11px 2px;transition:color .16s ease;box-shadow:none}
 .chapter-analysis-row:last-child{border-bottom:0}
 .chapter-analysis-row:hover{background:transparent;border-color:var(--line);border-bottom-color:var(--teal);transform:none}
 .chapter-analysis-name{display:flex;align-items:flex-start;gap:10px;min-width:0}
@@ -25,8 +25,8 @@
 .chapter-analysis-rank.top{color:var(--gold);border-color:transparent}
 .chapter-analysis-title{font-size:13px;line-height:1.45;font-weight:700;overflow-wrap:anywhere}
 .chapter-analysis-row .bar-track{height:7px;background:var(--surface3)}
-.chapter-analysis-count{text-align:right;font-size:13px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap}
-@media(max-width:600px){.chapter-analysis-panel{padding:13px}.chapter-analysis-list{grid-template-columns:1fr}.chapter-analysis-row{grid-template-columns:minmax(0,1.5fr) minmax(35px,.65fr) 52px;gap:8px;padding:10px 0}.chapter-analysis-title{font-size:12px}.chapter-analysis-count{font-size:12px}}
+.chapter-analysis-count{text-align:right;font-size:13px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap}.chapter-analysis-share{text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:600px){.chapter-analysis-panel{padding:13px}.chapter-analysis-list{grid-template-columns:1fr}.chapter-analysis-row{grid-template-columns:minmax(0,1.5fr) minmax(35px,.65fr) 48px 54px;gap:7px;padding:10px 0}.chapter-analysis-title{font-size:12px}.chapter-analysis-count{font-size:12px}}
 </style>
 </head>
 <body>
@@ -37,14 +37,14 @@
   </header>
 
   <section id="dashboard">
-    <div class="hero"><div><div class="eyebrow">A smarter way to prioritize revision</div><h1>Zoology High-Yield Analyzer</h1><p>Explore the topics listed in your Zoology PDF, compare their historical exam-session references within each chapter, and build a more focused revision plan.</p></div><div class="mini-tag" id="chapterMDTotal" aria-live="polite">M + D analysis across all chapters</div></div>
+    <div class="hero"><div><div class="eyebrow">A smarter way to prioritize revision</div><h1>Zoology High-Yield Analyzer</h1><p>Explore chapter-wise question counts and percentages, then review the historical topic references transcribed from your Zoology PDF.</p></div><div class="mini-tag" id="chapterQuestionTotal" aria-live="polite">610 questions across 12 chapters</div></div>
     <section class="chapter-analysis-panel" aria-labelledby="chapterAnalysisHeading">
       <div class="chapter-analysis-head">
-        <div><h2 id="chapterAnalysisHeading">Chapter Priority: Combined M + D Year Marks</h2><p>All 12 chapters ranked by the total number of Medical (M) and Dental (D) year labels listed under their topics.</p></div>
+        <div><h2 id="chapterAnalysisHeading">Chapter-wise Question Distribution</h2><p>All 12 chapters ranked by the number of individual questions in the updated dataset.</p></div>
         <div class="chapter-analysis-total" id="chapterAnalysisTotal">Calculating total…</div>
       </div>
-      <div class="chapter-analysis-list" id="chapterAnalysisList" aria-label="All chapters ranked by combined M and D year marks"></div>
-      <p class="chapter-analysis-note">How to use this: chapters with more M + D year marks are a sensible place to begin revision. Each mark is a printed topic/year reference, not necessarily one unique MCQ; a year may be listed under multiple topics. Labels marked MAT are excluded from these M + D totals. This is a study guide based on the supplied source, not a guarantee of future questions.</p>
+      <div class="chapter-analysis-list" id="chapterAnalysisList" aria-label="All chapters ranked by individual question count"></div>
+      <p class="chapter-analysis-note">These question counts and percentages come from the latest dataset you supplied (610 questions in total; percentages add to 100.00%). The topic-level historical year-reference analysis below is a separate PDF-derived measure and should not be confused with individual question counts.</p>
     </section>
     <div class="metrics" id="dashboardMetrics" aria-label="Dataset overview"></div>
     <div class="notice"><strong>How to read the counts:</strong> the PDF lists year references (such as <b>M: 23-24</b> or <b>D: 23-24</b>), not a complete numeric count of individual MCQs. The number shown here is the count of printed label + year references. A topic with no printed years is marked <b>Unverified</b>, not zero. These totals are not guaranteed to represent unique questions.</div>
@@ -88,7 +88,8 @@
   <footer class="footer"><span>Based on the supplied scanned PDF · Source pages are shown per topic.</span><span>Historical frequency is a study-priority estimate, not a guarantee of future questions.</span></footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script id="dataset" type="application/json">{
+<script id="dataset" type="application/json">
+{
   "title": "Zoology Medical Admission High-Yield Analyzer",
   "sourceFile": "Zoology .pdf",
   "sourcePagesReviewed": "PDF pages 2-15 (14 chapter/section analysis pages across 12 chapters); page 1 is the cover",
@@ -2812,8 +2813,77 @@
         }
       ]
     }
-  ]
-}</script>
+  ],
+  "questionDistribution": {
+    "metric": "User-supplied chapter-wise individual question counts",
+    "totalQuestions": 610,
+    "totalPercentage": 100.0,
+    "chapters": [
+      {
+        "number": 1,
+        "questionCount": 40,
+        "percentage": 6.56
+      },
+      {
+        "number": 2,
+        "questionCount": 46,
+        "percentage": 7.54
+      },
+      {
+        "number": 3,
+        "questionCount": 101,
+        "percentage": 16.56
+      },
+      {
+        "number": 4,
+        "questionCount": 90,
+        "percentage": 14.75
+      },
+      {
+        "number": 5,
+        "questionCount": 31,
+        "percentage": 5.08
+      },
+      {
+        "number": 6,
+        "questionCount": 27,
+        "percentage": 4.43
+      },
+      {
+        "number": 7,
+        "questionCount": 55,
+        "percentage": 9.02
+      },
+      {
+        "number": 8,
+        "questionCount": 97,
+        "percentage": 15.9
+      },
+      {
+        "number": 9,
+        "questionCount": 45,
+        "percentage": 7.38
+      },
+      {
+        "number": 10,
+        "questionCount": 31,
+        "percentage": 5.08
+      },
+      {
+        "number": 11,
+        "questionCount": 44,
+        "percentage": 7.21
+      },
+      {
+        "number": 12,
+        "questionCount": 3,
+        "percentage": 0.49
+      }
+    ],
+    "note": "This is a separate chapter-level question-count dataset supplied in the latest update. Topic-level historical year-reference counts elsewhere in this file remain PDF-derived and are not individual-question counts."
+  }
+}
+</script>
 <script>
 (() => {
   'use strict';
@@ -2826,19 +2896,23 @@
   let toastTimer = null;
   const allTopics = DATA.chapters.flatMap(c => c.topics);
   const chapterById = new Map(DATA.chapters.map(c => [c.id,c]));
-  // Chapter-level priority counts exact M and D labels only; MAT is deliberately excluded.
-  const chapterMDAnalysis = (() => {
-    const ranked = DATA.chapters.map(ch => ({
-      id: ch.id,
-      chapter: ch,
-      total: ch.topics.reduce((sum, topic) => sum + topic.yearReferences.filter(ref => ref.examLabel === 'M' || ref.examLabel === 'D').length, 0)
-    })).sort((a,b) => b.total - a.total || a.chapter.number - b.chapter.number);
+  // User-supplied chapter-wise individual question counts and percentages.
+  const chapterQuestionAnalysis = (() => {
+    const ranked = DATA.questionDistribution.chapters.map(entry => ({
+      ...entry,
+      chapter: DATA.chapters.find(ch => ch.number === entry.number)
+    })).filter(item => item.chapter).sort((a,b) => b.questionCount - a.questionCount || a.number - b.number);
     let currentRank = 0;
     ranked.forEach((item,index) => {
-      if (index === 0 || item.total !== ranked[index-1].total) currentRank = index + 1;
+      if (index === 0 || item.questionCount !== ranked[index-1].questionCount) currentRank = index + 1;
       item.rank = currentRank;
     });
-    return { ranked, byId: new Map(ranked.map(item => [item.id,item])), total: ranked.reduce((sum,item) => sum + item.total, 0) };
+    return {
+      ranked,
+      byNumber: new Map(ranked.map(item => [item.number,item])),
+      total: ranked.reduce((sum,item) => sum + item.questionCount, 0),
+      percentageTotal: ranked.reduce((sum,item) => sum + item.percentage, 0)
+    };
   })();
   let studied = {};
   try { studied = JSON.parse(localStorage.getItem('zoologyAnalyzerStudied') || '{}') || {}; } catch(e) { studied = {}; }
@@ -2935,19 +3009,19 @@
   function starsText(rating){ if(rating===null || rating===undefined) return '☆☆☆☆☆'; return '★'.repeat(rating)+'☆'.repeat(5-rating); }
   function tierClass(rating){return rating===5?'high':rating===3?'medium':rating===1?'low':rating===0?'zero':'unknown';}
   function setTheme(){document.documentElement.dataset.theme=state.theme;$('#themeToggle').textContent=state.theme==='dark'?'☼ Light mode':'☾ Dark mode';$('#themeToggle').setAttribute('aria-label',state.theme==='dark'?'Switch to light theme':'Switch to dark theme');safeStorageSet('zoologyAnalyzerTheme',state.theme);}
-  function renderChapterMDAnalysis(){
-    $('#chapterMDTotal').textContent = `${fmt.format(chapterMDAnalysis.total)} M + D year marks across ${DATA.chapters.length} chapters`;
-    $('#chapterAnalysisTotal').textContent = `${fmt.format(chapterMDAnalysis.total)} total marks`;
+  function renderChapterQuestionAnalysis(){
+    $('#chapterQuestionTotal').textContent = `${fmt.format(chapterQuestionAnalysis.total)} questions across ${chapterQuestionAnalysis.ranked.length} chapters`;
+    $('#chapterAnalysisTotal').textContent = `${fmt.format(chapterQuestionAnalysis.total)} questions · ${chapterQuestionAnalysis.percentageTotal.toFixed(2)}%`;
     const box = $('#chapterAnalysisList');
     box.replaceChildren();
-    const max = Math.max(1, ...chapterMDAnalysis.ranked.map(item => item.total));
-    chapterMDAnalysis.ranked.forEach(item => {
+    const max = Math.max(1, ...chapterQuestionAnalysis.ranked.map(item => item.questionCount));
+    chapterQuestionAnalysis.ranked.forEach(item => {
       const ch = item.chapter;
       const row = el('button', {
         type:'button',
         class:'chapter-analysis-row',
-        'aria-label':`Priority ${item.rank}, Chapter ${ch.number}: ${ch.name}, ${item.total} combined Medical and Dental year marks. Open chapter.`,
-        title:`Priority #${item.rank} · ${item.total} M + D year marks`
+        'aria-label':`Rank ${item.rank}, Chapter ${ch.number}: ${ch.name}, ${item.questionCount} questions, ${item.percentage.toFixed(2)} percent. Open chapter.`,
+        title:`Rank #${item.rank} · ${item.questionCount} questions · ${item.percentage.toFixed(2)}%`
       });
       const name = el('div',{class:'chapter-analysis-name'});
       append(name,
@@ -2956,11 +3030,13 @@
       );
       const track = el('div',{class:'bar-track','aria-hidden':'true'});
       const fill = el('div',{class:'bar-fill'});
-      fill.style.width = `${item.total / max * 100}%`;
+      fill.style.width = `${item.questionCount / max * 100}%`;
       track.appendChild(fill);
-      const count = el('div',{class:'chapter-analysis-count'},fmt.format(item.total));
-      count.setAttribute('aria-label',`${item.total} M plus D year marks`);
-      append(row,name,track,count);
+      const count = el('div',{class:'chapter-analysis-count'},fmt.format(item.questionCount));
+      count.setAttribute('aria-label',`${item.questionCount} questions`);
+      const share = el('div',{class:'chapter-analysis-share'},`${item.percentage.toFixed(2)}%`);
+      share.setAttribute('aria-label',`${item.percentage.toFixed(2)} percent of all questions`);
+      append(row,name,track,count,share);
       row.addEventListener('click',()=>openChapter(ch.id));
       box.appendChild(row);
     });
@@ -2968,9 +3044,9 @@
   function renderDashboardMetrics(){
     const known=allTopics.filter(t=>topicCount(t)!==null), unk=allTopics.length-known.length, total=known.reduce((s,t)=>s+topicCount(t),0);
     const metrics=[
-      ['Chapters',DATA.chapters.length,'All chapter pages found in the PDF'],
-      ['Topic records',allTopics.length,'Retained in original source order'],
-      ['Listed year references',fmt.format(total),'Sum across topic records; not unique questions'],
+      ['Total questions',fmt.format(DATA.questionDistribution.totalQuestions),'Latest chapter-wise question-count dataset'],
+      ['Chapters',DATA.chapters.length,'All 12 chapters included in the distribution'],
+      ['Topic records',allTopics.length,'Retained in original PDF order'],
       ['Unverified topics',unk,`${known.length} topics have printed year references`]
     ];
     const box=$('#dashboardMetrics');box.replaceChildren();metrics.forEach(([label,num,foot])=>{const card=el('div',{class:'metric'});append(card,el('div',{class:'label'},label),el('div',{class:'num'},num),el('div',{class:'foot'},foot));box.appendChild(card);});
@@ -2990,11 +3066,11 @@
       const hay=[`chapter ${ch.number}`,String(ch.number),ch.name,...ch.topics.map(t=>t.name)].join(' ').toLocaleLowerCase();
       if(q&&!hay.includes(q))return;
       const s=chapterStats(ch);shown++;
-      const md=chapterMDAnalysis.byId.get(ch.id);
-      const btn=el('button',{type:'button',class:'chapter-card','aria-label':`Open chapter ${ch.number}: ${ch.name}. ${md.total} combined M and D year marks; priority ${md.rank}.`});
+      const question=chapterQuestionAnalysis.byNumber.get(ch.number);
+      const btn=el('button',{type:'button',class:'chapter-card','aria-label':`Open chapter ${ch.number}: ${ch.name}. ${question.questionCount} questions, ${question.percentage.toFixed(2)} percent; rank ${question.rank}.`});
       const top=el('div',{class:'chapter-top'});append(top,el('span',{class:'chapter-index'},`CHAPTER ${String(ch.number).padStart(2,'0')}`),el('span',{class:'chapter-arrow','aria-hidden':'true'},'↗'));
       append(btn,top,el('h3',{},ch.name));
-      const stats=el('div',{class:'chapter-stats'});append(stats,el('span',{class:'pill high'},`M + D: ${fmt.format(md.total)} marks`),el('span',{class:`pill${md.rank<=3?' high':''}`,title:'Rank based on combined M + D year marks'},`Priority #${md.rank}`),el('span',{class:'pill'},`${ch.topics.length} topics`),el('span',{class:'pill'},`${s.known} with year refs`),el('span',{class:'pill warn'},`${s.unknown} unverified`),el('span',{class:'pill high'},`${s.high} high-yield`));btn.appendChild(stats);
+      const stats=el('div',{class:'chapter-stats'});append(stats,el('span',{class:'pill high'},`${fmt.format(question.questionCount)} questions · ${question.percentage.toFixed(2)}%`),el('span',{class:`pill${question.rank<=3?' high':''}`,title:'Rank based on individual question count'},`Question rank #${question.rank}`),el('span',{class:'pill'},`${ch.topics.length} topics`),el('span',{class:'pill'},`${s.known} with year refs`),el('span',{class:'pill warn'},`${s.unknown} unverified`),el('span',{class:'pill high'},`${s.high} high-yield`));btn.appendChild(stats);
       btn.addEventListener('click',()=>openChapter(ch.id));box.appendChild(btn);
     });
     if(!shown){const e=el('div',{class:'empty'});append(e,el('strong',{},'No matching chapters'),el('span',{},'Try a shorter chapter or topic search.'));box.appendChild(e);}
@@ -3005,9 +3081,10 @@
     rows.forEach(([label,value,denom])=>{const row=el('div');const line=el('div',{class:'quality-row'});append(line,el('span',{},label),el('strong',{},`${value}${denom>0?` / ${denom}`:''}`));row.appendChild(line);const track=el('div',{class:'quality-rule'});const fill=el('div');fill.style.width=`${denom>0?Math.min(100,value/denom*100):0}%`;track.appendChild(fill);row.appendChild(track);box.appendChild(row);});
   }
   function renderChapterMetrics(chapter){
-    const s=chapterStats(chapter), md=chapterMDAnalysis.byId.get(chapter.id), arr=[
+    const s=chapterStats(chapter), question=chapterQuestionAnalysis.byNumber.get(chapter.number), mdTotal=chapter.topics.reduce((sum,topic)=>sum+topic.yearReferences.filter(ref=>ref.examLabel==='M'||ref.examLabel==='D').length,0), arr=[
+      ['Questions',fmt.format(question.questionCount),`${question.percentage.toFixed(2)}% of all 610 questions · rank #${question.rank}`],
       ['Topics',chapter.topics.length,'All source topic entries'],
-      ['M + D year marks',fmt.format(md.total),`Priority #${md.rank} by combined Medical + Dental marks; MAT excluded`],
+      ['M + D year marks',fmt.format(mdTotal),'Separate PDF-derived topic/year references; MAT excluded'],
       ['Listed references',fmt.format(s.total),'Summed across topics; not unique questions'],
       ['High-yield topics',`${s.high} (${s.highPct.toFixed(0)}%)`,'Share of all listed topic records, under current method'],
       ['Unverified',s.unknown,'No year list printed · not zero']
@@ -3061,13 +3138,13 @@
       list.appendChild(card);
     });
   }
-  function renderChapter(){const ch=currentChapter();if(!ch)return;$('#dashboard').classList.add('hidden');$('#chapterView').classList.remove('hidden');$('#crumbChapter').textContent=`Chapter ${ch.number}: ${ch.name}`;$('#chapterKicker').textContent=`CHAPTER ${String(ch.number).padStart(2,'0')} · PDF PAGE${ch.sourcePdfPages&&ch.sourcePdfPages.length>1?'S':''} ${(ch.sourcePdfPages&&ch.sourcePdfPages.length>1?ch.sourcePdfPages[0]+'–'+ch.sourcePdfPages[ch.sourcePdfPages.length-1]:ch.sourcePdfPage)}`;$('#chapterTitle').textContent=ch.name;$('#chapterSub').textContent=`${ch.topics.length} source-listed topics · historical references transcribed from PDF page${ch.sourcePdfPages&&ch.sourcePdfPages.length>1?'s':''} ${(ch.sourcePdfPages&&ch.sourcePdfPages.length>1?ch.sourcePdfPages[0]+'–'+ch.sourcePdfPages[ch.sourcePdfPages.length-1]:ch.sourcePdfPage)}`;renderChapterMetrics(ch);renderQualityRows(ch);renderChart(ch);updateSettingsUI();renderTopics(ch);window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
+  function renderChapter(){const ch=currentChapter();if(!ch)return;$('#dashboard').classList.add('hidden');$('#chapterView').classList.remove('hidden');$('#crumbChapter').textContent=`Chapter ${ch.number}: ${ch.name}`;$('#chapterKicker').textContent=`CHAPTER ${String(ch.number).padStart(2,'0')} · PDF PAGE${ch.sourcePdfPages&&ch.sourcePdfPages.length>1?'S':''} ${(ch.sourcePdfPages&&ch.sourcePdfPages.length>1?ch.sourcePdfPages[0]+'–'+ch.sourcePdfPages[ch.sourcePdfPages.length-1]:ch.sourcePdfPage)}`;$('#chapterTitle').textContent=ch.name;const question=chapterQuestionAnalysis.byNumber.get(ch.number);$('#chapterSub').textContent=`${fmt.format(question.questionCount)} questions (${question.percentage.toFixed(2)}% of total) · ${ch.topics.length} source-listed topics · PDF topic references are shown separately`;renderChapterMetrics(ch);renderQualityRows(ch);renderChart(ch);updateSettingsUI();renderTopics(ch);window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
   function openChapter(id){state.chapterId=id;state.topicQuery='';state.sort='original';state.filter='all';state.studyFilter='all';$('#topicSearch').value='';$('#sortSelect').value='original';$('#filterSelect').value='all';$('#studyFilter').value='all';renderChapter();}
   function goDashboard(){state.chapterId=null;$('#chapterView').classList.add('hidden');$('#dashboard').classList.remove('hidden');renderChapters();window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
   function downloadFile(filename,content,mime){const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const a=el('a',{href:url,download:filename});document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
   function exportJson(){downloadFile('Zoology_Analyzer_Data.json',JSON.stringify(DATA,null,2),'application/json;charset=utf-8');notify('Dataset JSON prepared for download.');}
   function csvCell(value){const s=String(value??'');return '"'+s.replace(/"/g,'""')+'"';}
-  function exportCsv(){const ch=currentChapter();if(!ch)return;const rows=[['chapterNumber','chapterName','topicOrder','topicName','listedAppearanceCount','countStatus','yearReferences','sourcePdfPage']];ch.topics.forEach(t=>rows.push([ch.number,ch.name,t.order,t.name,t.listedAppearanceCount===null?'':t.listedAppearanceCount,t.countStatus,refsSummary(t),t.sourcePdfPage]));const csv='\uFEFF'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');downloadFile(`Zoology_Chapter_${String(ch.number).padStart(2,'0')}_Topics.csv`,csv,'text/csv;charset=utf-8');notify('Chapter CSV prepared for download.');}
+  function exportCsv(){const ch=currentChapter();if(!ch)return;const question=chapterQuestionAnalysis.byNumber.get(ch.number);const rows=[['chapterNumber','chapterName','chapterQuestionCount','chapterQuestionPercentage','topicOrder','topicName','listedAppearanceCount','countStatus','yearReferences','sourcePdfPage']];ch.topics.forEach(t=>rows.push([ch.number,ch.name,question.questionCount,question.percentage.toFixed(2)+'%',t.order,t.name,t.listedAppearanceCount===null?'':t.listedAppearanceCount,t.countStatus,refsSummary(t),t.sourcePdfPage]));const csv='\uFEFF'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');downloadFile(`Zoology_Chapter_${String(ch.number).padStart(2,'0')}_Topics.csv`,csv,'text/csv;charset=utf-8');notify('Chapter CSV prepared for download.');}
   function resetFilters(){state.topicQuery='';state.sort='original';state.filter='all';state.studyFilter='all';$('#topicSearch').value='';$('#sortSelect').value='original';$('#filterSelect').value='all';$('#studyFilter').value='all';renderTopics(currentChapter());}
   function readConfig(){
     const high=Math.max(1,Math.floor(Number($('#highCount').value)||8));const medium=Math.max(1,Math.floor(Number($('#mediumCount').value)||4));const hp=Number($('#highPercent').value),mp=Number($('#mediumPercent').value);const err=$('#settingsError');err.textContent='';
@@ -3093,8 +3170,9 @@
   // Runtime integrity guard: catches stale IDs or count/reference mismatches before UI use.
   const ids=new Set();let integrityErrors=[];
   DATA.chapters.forEach(ch=>{if(ids.has(ch.id))integrityErrors.push(`Duplicate chapter ID: ${ch.id}`);ids.add(ch.id);ch.topics.forEach(t=>{if(ids.has(t.id))integrityErrors.push(`Duplicate record ID: ${t.id}`);ids.add(t.id);if(t.yearReferences.length && t.listedAppearanceCount!==t.yearReferences.length)integrityErrors.push(`Reference mismatch: ${t.id}`);if(!t.yearReferences.length && t.listedAppearanceCount!==null)integrityErrors.push(`Unknown count not null: ${t.id}`);});});
+  if(chapterQuestionAnalysis.total !== DATA.questionDistribution.totalQuestions || Math.round(chapterQuestionAnalysis.percentageTotal*100) !== Math.round(DATA.questionDistribution.totalPercentage*100) || chapterQuestionAnalysis.ranked.length !== DATA.chapters.length){integrityErrors.push('Chapter question distribution totals do not match the declared dataset summary.');}
   if(integrityErrors.length){$('#dashboard').prepend(el('div',{class:'notice'},`Data validation warning: ${integrityErrors.join('; ')}`));}
-  setTheme();renderChapterMDAnalysis();renderDashboardMetrics();renderChapters();renderLegend();
+  setTheme();renderChapterQuestionAnalysis();renderDashboardMetrics();renderChapters();renderLegend();
 })();
 </script>
 </body>
