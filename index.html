@@ -1,9 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071426">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#071426" name="theme-color"/>
 <title>Zoology | Medical Admission High-Yield Analyzer</title>
 <style>
 :root{color-scheme:dark;--bg:#071426;--surface:#0d2038;--surface2:#102943;--surface3:#142f4b;--text:#eef7ff;--muted:#9eb3c8;--line:#29435c;--teal:#60a5fa;--teal2:#2563eb;--gold:#facc15;--green:#65d6a6;--red:#fb8787;--shadow:0 16px 40px rgba(0,0,0,.20);--radius:18px;--input:#0a1b30}
@@ -31,67 +32,131 @@
 .chapter-analysis-row .bar-track{height:7px;background:var(--surface3)}
 .chapter-analysis-count{text-align:right;font-size:13px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap}.chapter-analysis-share{text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:600px){.chapter-analysis-panel{padding:13px}.chapter-analysis-list{grid-template-columns:1fr}.chapter-analysis-row{grid-template-columns:minmax(0,1.5fr) minmax(35px,.65fr) 48px 54px;gap:7px;padding:10px 0}.chapter-analysis-title{font-size:12px}.chapter-analysis-count{font-size:12px}}
+
+/* Top 15 Zoology topics transcribed from the supplied image. */
+.top-topics-section{margin:16px 0 24px}
+.top-topics-panel{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:var(--shadow)}
+.top-topics-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.top-topics-heading h2{font-size:21px;letter-spacing:-.02em;margin:0}
+.top-topics-heading p{font-size:12px;color:var(--muted);margin:5px 0 0}
+.top-topics-table-wrap{margin-top:14px;overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.top-topics-table{width:100%;min-width:760px;border-collapse:collapse;background:var(--surface)}
+.top-topics-table th,.top-topics-table td{padding:12px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.top-topics-table thead th{background:var(--surface2);color:var(--muted);font-size:12px;font-weight:800;white-space:nowrap}
+.top-topics-table tbody td{font-size:13px;line-height:1.55}
+.top-topics-table tbody tr:last-child td{border-bottom:0}
+.top-topics-table tbody tr:hover{background:color-mix(in srgb,var(--teal) 5%,var(--surface))}
+.top-topics-table .top-topic-name{font-weight:750;min-width:245px}
+.top-topics-table .top-topic-chapter{min-width:245px;color:var(--muted)}
+.top-topics-table .top-topic-count{width:85px;text-align:center;font-weight:850;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gold)}
+.top-topics-table .top-topic-latest{min-width:190px}
+@media(max-width:600px){.top-topics-panel{padding:13px}.top-topics-heading h2{font-size:19px}}
+
+
+/* Five consistent chapter colors used only in the Top 15 topics table. */
+.chapter-color-1{--chapter-accent:#60a5fa}
+.chapter-color-2{--chapter-accent:#c084fc}
+.chapter-color-3{--chapter-accent:#2dd4bf}
+.chapter-color-4{--chapter-accent:#fb923c}
+.chapter-color-5{--chapter-accent:#f472b6}
+.chapter-color-legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:13px}
+.chapter-legend-item{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;line-height:1.4}
+.chapter-legend-dot{display:inline-block;width:10px;height:10px;flex:0 0 10px;border-radius:50%;background:var(--chapter-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--chapter-accent) 18%,transparent)}
+.top-topics-table .top-topic-chapter{min-width:245px;color:var(--text)}
+.chapter-label{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid color-mix(in srgb,var(--chapter-accent) 48%,var(--line));border-left:4px solid var(--chapter-accent);border-radius:9px;background:color-mix(in srgb,var(--chapter-accent) 14%,var(--surface));color:var(--text);font-size:12px;font-weight:750;line-height:1.45}
+.chapter-label::before{content:"";width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:var(--chapter-accent)}
+@media(max-width:600px){.chapter-color-legend{gap:8px 11px}.chapter-label{font-size:11px;padding:5px 8px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="topbar">
-    <div class="brand"><div class="brand-mark" aria-hidden="true">Z</div><div><div class="brand-name">ZOOLOGY / ADMISSION ANALYTICS</div><div class="brand-sub">Chapter-wise historical topic analysis</div></div></div>
-    <div class="top-actions"><button id="jsonExportTop" class="btn ghost" type="button" title="Download the complete source dataset as JSON">⇩ Export data</button><button id="themeToggle" class="btn" type="button" aria-label="Switch color theme">☼ Light mode</button></div>
-  </header>
-
-  <section id="dashboard">
-    <div class="hero"><div><div class="eyebrow">A smarter way to prioritize revision</div><h1>Zoology High-Yield Analyzer</h1><p>Explore chapter-wise question counts and percentages, then review the historical topic references transcribed from your Zoology PDF.</p></div><div class="mini-tag" id="chapterQuestionTotal" aria-live="polite">610 questions across 12 chapters</div></div>
-    <section class="chapter-analysis-panel" aria-labelledby="chapterAnalysisHeading">
-      <div class="chapter-analysis-head">
-        <div><h2 id="chapterAnalysisHeading">Chapter-wise Question Distribution</h2><p>All 12 chapters ranked by the number of individual questions in the updated dataset.</p></div>
-        <div class="chapter-analysis-total" id="chapterAnalysisTotal">Calculating total…</div>
-      </div>
-      <div class="chapter-analysis-list" id="chapterAnalysisList" aria-label="All chapters ranked by individual question count"></div>
-      <p class="chapter-analysis-note">These question counts and percentages come from the latest dataset you supplied (610 questions in total; percentages add to 100.00%). The topic-level historical year-reference analysis below is a separate PDF-derived measure and should not be confused with individual question counts.</p>
-    </section>
-    <div class="metrics" id="dashboardMetrics" aria-label="Dataset overview"></div>
-    <div class="notice"><strong>How to read the counts:</strong> the PDF lists year references (such as <b>M: 23-24</b> or <b>D: 23-24</b>), not a complete numeric count of individual MCQs. The number shown here is the count of printed label + year references. A topic with no printed years is marked <b>Unverified</b>, not zero. These totals are not guaranteed to represent unique questions.</div>
-    <div class="section-head"><div><h2>Explore chapters</h2><p>Select a chapter to see its topic rankings, source references, and frequency chart.</p></div><div class="search-row" style="flex:1;max-width:520px"><div class="searchbox"><span class="search-icon" aria-hidden="true">⌕</span><input class="input" id="chapterSearch" type="search" placeholder="Search chapters or topics…" aria-label="Search chapters or topics"></div></div></div>
-    <div class="chapter-grid" id="chapterGrid" aria-live="polite"></div>
-    <div class="section-head"><div><h2>Importance legend</h2><p>Ratings are computed dynamically from each chapter's own data.</p></div></div>
-    <div class="legend" id="legend"></div>
-  </section>
-
-  <section id="chapterView" class="hidden" aria-live="polite">
-    <nav class="breadcrumbs" aria-label="Breadcrumb"><button type="button" id="backLink">All chapters</button><span aria-hidden="true">/</span><span id="crumbChapter">Chapter</span></nav>
-    <div class="chapter-heading"><div><div class="eyebrow" id="chapterKicker">CHAPTER ANALYSIS</div><h1 id="chapterTitle">Chapter title</h1><p id="chapterSub">Topic-level historical reference analysis</p></div><div class="action-row"><button class="btn" id="csvExport" type="button">⇩ Export chapter CSV</button><button class="btn" id="printChapter" type="button">▤ Print report</button></div></div>
-    <div class="chapter-metrics" id="chapterMetrics"></div>
-    <div class="analysis-grid">
-      <section class="panel" aria-labelledby="chartHeading"><h2 class="panel-title" id="chartHeading">Historical reference distribution</h2><p class="panel-sub">Every topic is listed below, including topics without year labels. The chart uses listed label/session references, not individual question counts.</p><div class="chart" id="frequencyChart" role="img" aria-label="Bar chart showing listed exam-session references by topic"></div></section>
-      <section class="panel" aria-labelledby="qualityHeading"><h2 class="panel-title" id="qualityHeading">Chapter data quality</h2><p class="panel-sub">Only topics with printed year references are ranked.</p><div class="quality-list" id="chapterQuality"></div><div class="notice" style="margin:16px 0 0;padding:11px 12px;font-size:12px"><strong>Reminder:</strong> “Unverified” means no years are shown in the source list. It does not mean that topic never appeared.</div></section>
-    </div>
-
-    <details class="panel settings" id="settingsPanel">
-      <summary>Classification settings <span class="panel-sub" style="display:inline;margin:0;font-weight:500"> · Adaptive chapter-wise ranking is the default</span></summary>
-      <div class="settings-grid">
-        <div class="field"><label for="methodSelect">Classification method</label><select class="select" id="methodSelect"><option value="adaptive">Adaptive chapter-wise ranking</option><option value="percentage">Percentage-of-chapter frequency</option><option value="manual">Manual listed-reference thresholds</option></select></div>
-        <div class="field" id="highCountField"><label for="highCount">High Yield threshold (references)</label><input class="input" id="highCount" type="number" min="1" max="9999" step="1" value="8"></div>
-        <div class="field" id="mediumCountField"><label for="mediumCount">Important threshold (references)</label><input class="input" id="mediumCount" type="number" min="1" max="9999" step="1" value="4"></div>
-        <div class="field" id="highPercentField"><label for="highPercent">High Yield threshold (share %)</label><input class="input" id="highPercent" type="number" min="0.1" max="100" step="0.5" value="15"></div>
-        <div class="field" id="mediumPercentField"><label for="mediumPercent">Important threshold (share %)</label><input class="input" id="mediumPercent" type="number" min="0.1" max="100" step="0.5" value="7.5"></div>
-      </div>
-      <p class="settings-note" id="settingsNote">Adaptive method: the top-frequency band targets roughly the top 20% of positive-count topics; the next distinct frequency band targets roughly the top half where possible. Boundaries expand to keep equal counts together. Small or tied distributions may have fewer than three distinct positive tiers.</p>
-      <div id="settingsError" class="error-text" role="status"></div>
-    </details>
-
-    <div class="section-head"><div><h2>Topic Importance Analysis</h2><p id="topicCountSummary">All source topics are retained in original PDF order unless sorted differently.</p></div><button class="btn small" id="resetFilters" type="button">Reset filters</button></div>
-    <div class="topic-controls">
-      <div class="field"><label for="topicSearch">Search this chapter</label><div class="searchbox"><span class="search-icon" aria-hidden="true">⌕</span><input class="input" id="topicSearch" type="search" placeholder="Search topic name…" aria-label="Search topics in this chapter"></div></div>
-      <div class="field"><label for="sortSelect">Sort topics</label><select class="select" id="sortSelect"><option value="original">Original PDF order</option><option value="count-desc">Most references first</option><option value="count-asc">Fewest references first</option><option value="importance">Highest importance first</option><option value="alphabetical">Alphabetical</option></select></div>
-      <div class="field"><label for="filterSelect">Filter topics</label><select class="select" id="filterSelect"><option value="all">All topics</option><option value="high">5 stars · High Yield Important</option><option value="medium">3 stars · Important</option><option value="low">1 star · Lower Priority</option><option value="zero">0 stars · Explicit zero only</option><option value="unknown">Unverified · No years listed</option></select></div>
-      <div class="field"><label for="studyFilter">Study checklist</label><select class="select" id="studyFilter"><option value="all">All study states</option><option value="todo">Not marked studied</option><option value="done">Marked studied</option></select></div>
-    </div>
-    <div id="topicList" class="topic-list"></div>
-  </section>
-  <footer class="footer"><span>Based on the supplied scanned PDF · Source pages are shown per topic.</span><span>Historical frequency is a study-priority estimate, not a guarantee of future questions.</span></footer>
+<header class="topbar">
+<div class="brand"><div aria-hidden="true" class="brand-mark">Z</div><div><div class="brand-name">ZOOLOGY / ADMISSION ANALYTICS</div><div class="brand-sub">Chapter-wise historical topic analysis</div></div></div>
+<div class="top-actions"><button class="btn ghost" id="jsonExportTop" title="Download the complete source dataset as JSON" type="button">⇩ Export data</button><button aria-label="Switch color theme" class="btn" id="themeToggle" type="button">☼ Light mode</button></div>
+</header>
+<section id="dashboard">
+<div class="hero"><div><div class="eyebrow">A smarter way to prioritize revision</div><h1>Zoology High-Yield Analyzer</h1><p>Explore chapter-wise question counts and percentages, then review the historical topic references transcribed from your Zoology PDF.</p></div><div aria-live="polite" class="mini-tag" id="chapterQuestionTotal">610 questions across 12 chapters</div></div>
+<section aria-labelledby="chapterAnalysisHeading" class="chapter-analysis-panel">
+<div class="chapter-analysis-head">
+<div><h2 id="chapterAnalysisHeading">Chapter-wise Question Distribution</h2><p>All 12 chapters ranked by the number of individual questions in the updated dataset.</p></div>
+<div class="chapter-analysis-total" id="chapterAnalysisTotal">Calculating total…</div>
 </div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div aria-label="All chapters ranked by individual question count" class="chapter-analysis-list" id="chapterAnalysisList"></div>
+<p class="chapter-analysis-note">These question counts and percentages come from the latest dataset you supplied (610 questions in total; percentages add to 100.00%). The topic-level historical year-reference analysis below is a separate PDF-derived measure and should not be confused with individual question counts.</p>
+</section>
+<section aria-labelledby="topTopicsHeading" class="top-topics-section">
+<div class="top-topics-panel">
+<div class="top-topics-heading">
+<div>
+<h2 id="topTopicsHeading">জুলজিতে সবচেয়ে বেশি আসা ১৫ টি টপিক</h2>
+<p>প্রদত্ত ছবির তালিকা অনুযায়ী টপিক, অধ্যায়, প্রশ্ন আসার সংখ্যা ও সর্বশেষ পরীক্ষার সেশন।</p>
+</div>
+</div><div aria-label="অধ্যায়ভিত্তিক রঙের নির্দেশিকা" class="chapter-color-legend"><span class="chapter-legend-item"><span aria-hidden="true" class="chapter-legend-dot chapter-color-1"></span><span>মানব শারীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ</span></span><span class="chapter-legend-item"><span aria-hidden="true" class="chapter-legend-dot chapter-color-2"></span><span>প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস</span></span><span class="chapter-legend-item"><span aria-hidden="true" class="chapter-legend-dot chapter-color-3"></span><span>মানব শারীরতত্ত্ব: পরিপাক ও শোষণ</span></span><span class="chapter-legend-item"><span aria-hidden="true" class="chapter-legend-dot chapter-color-4"></span><span>মানব শারীরতত্ত্ব: রক্ত ও সংবহন</span></span><span class="chapter-legend-item"><span aria-hidden="true" class="chapter-legend-dot chapter-color-5"></span><span>মানব শারীরতত্ত্ব: চলন ও অঙ্গচালনা</span></span></div>
+<div class="top-topics-table-wrap">
+<table class="top-topics-table">
+<thead>
+<tr><th scope="col">টপিক</th><th scope="col">অধ্যায়</th><th scope="col">কতবার</th><th scope="col">সর্বশেষ</th></tr>
+</thead>
+<tbody>
+<tr><td class="top-topic-name">অন্তঃক্ষরা গ্রন্থি ও হরমোন</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-1">মানব শারীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ</span></td><td class="top-topic-count">৩১</td><td class="top-topic-latest">MBBS 24-25, AFMC 25-26</td></tr>
+<tr><td class="top-topic-name">মস্তিষ্কের অংশ ও কাজ</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-1">মানব শারীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ</span></td><td class="top-topic-count">২৯</td><td class="top-topic-latest">MBBS 24-25, AFMC 25-26</td></tr>
+<tr><td class="top-topic-name">ননকর্ডাটা পর্বের বৈশিষ্ট্য ও উদাহরণ</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-2">প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস</span></td><td class="top-topic-count">২৬</td><td class="top-topic-latest">MBBS 25-26</td></tr>
+<tr><td class="top-topic-name">মুখগহ্বর, লালাগ্রন্থি ও দাঁত</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-3">মানব শারীরতত্ত্ব: পরিপাক ও শোষণ</span></td><td class="top-topic-count">২৫</td><td class="top-topic-latest">MBBS &amp; BDS 25-26</td></tr>
+<tr><td class="top-topic-name">মেরুদণ্ডী শ্রেণি (মাছ, উভচর, সরীসৃপ, পাখি, স্তন্যপায়ী)</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-2">প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস</span></td><td class="top-topic-count">২৪</td><td class="top-topic-latest">MBBS 25-26</td></tr>
+<tr><td class="top-topic-name">যকৃত (খণ্ড, কাপফার কোষ, গ্লাইকোজেন, প্লাজমা প্রোটিন)</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-3">মানব শারীরতত্ত্ব: পরিপাক ও শোষণ</span></td><td class="top-topic-count">২২</td><td class="top-topic-latest">AFMC 24-25</td></tr>
+<tr><td class="top-topic-name">করোনারি ধমনী</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-1">মানব শারীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ</span></td><td class="top-topic-count">২১</td><td class="top-topic-latest">MBBS &amp; BDS 25-26</td></tr>
+<tr><td class="top-topic-name">অগ্ন্যাশয় ও আইলেটস অব ল্যাঙ্গারহ্যান্স</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-3">মানব শারীরতত্ত্ব: পরিপাক ও শোষণ</span></td><td class="top-topic-count">১৯</td><td class="top-topic-latest">MBBS &amp; BDS 25-26</td></tr>
+<tr><td class="top-topic-name">রক্ত জমাট ও ক্লটিং ফ্যাক্টর</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-4">মানব শারীরতত্ত্ব: রক্ত ও সংবহন</span></td><td class="top-topic-count">১৯</td><td class="top-topic-latest">MBBS 23-24, BDS 24-25, AFMC 24-25</td></tr>
+<tr><td class="top-topic-name">চোখ</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-1">মানব শারীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ</span></td><td class="top-topic-count">১৯</td><td class="top-topic-latest">MBBS 18-19</td></tr>
+<tr><td class="top-topic-name">রক্তবাহিকা ও রক্ত সংবহন (ধমনি, শিরা, পোর্টাল)</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-4">মানব শারীরতত্ত্ব: রক্ত ও সংবহন</span></td><td class="top-topic-count">১৮</td><td class="top-topic-latest">BDS 24-25</td></tr>
+<tr><td class="top-topic-name">শ্বেত রক্তকণিকা</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-4">মানব শারীরতত্ত্ব: রক্ত ও সংবহন</span></td><td class="top-topic-count">১৬</td><td class="top-topic-latest">MBBS 24-25, BDS 24-25</td></tr>
+<tr><td class="top-topic-name">হৃৎপিণ্ডের গঠন ও কপাটিকা</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-4">মানব শারীরতত্ত্ব: রক্ত ও সংবহন</span></td><td class="top-topic-count">১৬</td><td class="top-topic-latest">AFMC 25-26, AFMC 24-25</td></tr>
+<tr><td class="top-topic-name">পেসমেকার, SA নোড ও কার্ডিয়াক চক্র</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-4">মানব শারীরতত্ত্ব: রক্ত ও সংবহন</span></td><td class="top-topic-count">১৬</td><td class="top-topic-latest">MBBS 24-25, AFMC 25-26</td></tr>
+<tr><td class="top-topic-name">করোটি ও মুখমণ্ডলের অস্থি</td><td class="top-topic-chapter"><span class="chapter-label chapter-color-5">মানব শারীরতত্ত্ব: চলন ও অঙ্গচালনা</span></td><td class="top-topic-count">১৫</td><td class="top-topic-latest">AFMC 24-25</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<div aria-label="Dataset overview" class="metrics" id="dashboardMetrics"></div>
+<div class="notice"><strong>How to read the counts:</strong> the PDF lists year references (such as <b>M: 23-24</b> or <b>D: 23-24</b>), not a complete numeric count of individual MCQs. The number shown here is the count of printed label + year references. A topic with no printed years is marked <b>Unverified</b>, not zero. These totals are not guaranteed to represent unique questions.</div>
+<div class="section-head"><div><h2>Explore chapters</h2><p>Select a chapter to see its topic rankings, source references, and frequency chart.</p></div><div class="search-row" style="flex:1;max-width:520px"><div class="searchbox"><span aria-hidden="true" class="search-icon">⌕</span><input aria-label="Search chapters or topics" class="input" id="chapterSearch" placeholder="Search chapters or topics…" type="search"/></div></div></div>
+<div aria-live="polite" class="chapter-grid" id="chapterGrid"></div>
+<div class="section-head"><div><h2>Importance legend</h2><p>Ratings are computed dynamically from each chapter's own data.</p></div></div>
+<div class="legend" id="legend"></div>
+</section>
+<section aria-live="polite" class="hidden" id="chapterView">
+<nav aria-label="Breadcrumb" class="breadcrumbs"><button id="backLink" type="button">All chapters</button><span aria-hidden="true">/</span><span id="crumbChapter">Chapter</span></nav>
+<div class="chapter-heading"><div><div class="eyebrow" id="chapterKicker">CHAPTER ANALYSIS</div><h1 id="chapterTitle">Chapter title</h1><p id="chapterSub">Topic-level historical reference analysis</p></div><div class="action-row"><button class="btn" id="csvExport" type="button">⇩ Export chapter CSV</button><button class="btn" id="printChapter" type="button">▤ Print report</button></div></div>
+<div class="chapter-metrics" id="chapterMetrics"></div>
+<div class="analysis-grid">
+<section aria-labelledby="chartHeading" class="panel"><h2 class="panel-title" id="chartHeading">Historical reference distribution</h2><p class="panel-sub">Every topic is listed below, including topics without year labels. The chart uses listed label/session references, not individual question counts.</p><div aria-label="Bar chart showing listed exam-session references by topic" class="chart" id="frequencyChart" role="img"></div></section>
+<section aria-labelledby="qualityHeading" class="panel"><h2 class="panel-title" id="qualityHeading">Chapter data quality</h2><p class="panel-sub">Only topics with printed year references are ranked.</p><div class="quality-list" id="chapterQuality"></div><div class="notice" style="margin:16px 0 0;padding:11px 12px;font-size:12px"><strong>Reminder:</strong> “Unverified” means no years are shown in the source list. It does not mean that topic never appeared.</div></section>
+</div>
+<details class="panel settings" id="settingsPanel">
+<summary>Classification settings <span class="panel-sub" style="display:inline;margin:0;font-weight:500"> · Adaptive chapter-wise ranking is the default</span></summary>
+<div class="settings-grid">
+<div class="field"><label for="methodSelect">Classification method</label><select class="select" id="methodSelect"><option value="adaptive">Adaptive chapter-wise ranking</option><option value="percentage">Percentage-of-chapter frequency</option><option value="manual">Manual listed-reference thresholds</option></select></div>
+<div class="field" id="highCountField"><label for="highCount">High Yield threshold (references)</label><input class="input" id="highCount" max="9999" min="1" step="1" type="number" value="8"/></div>
+<div class="field" id="mediumCountField"><label for="mediumCount">Important threshold (references)</label><input class="input" id="mediumCount" max="9999" min="1" step="1" type="number" value="4"/></div>
+<div class="field" id="highPercentField"><label for="highPercent">High Yield threshold (share %)</label><input class="input" id="highPercent" max="100" min="0.1" step="0.5" type="number" value="15"/></div>
+<div class="field" id="mediumPercentField"><label for="mediumPercent">Important threshold (share %)</label><input class="input" id="mediumPercent" max="100" min="0.1" step="0.5" type="number" value="7.5"/></div>
+</div>
+<p class="settings-note" id="settingsNote">Adaptive method: the top-frequency band targets roughly the top 20% of positive-count topics; the next distinct frequency band targets roughly the top half where possible. Boundaries expand to keep equal counts together. Small or tied distributions may have fewer than three distinct positive tiers.</p>
+<div class="error-text" id="settingsError" role="status"></div>
+</details>
+<div class="section-head"><div><h2>Topic Importance Analysis</h2><p id="topicCountSummary">All source topics are retained in original PDF order unless sorted differently.</p></div><button class="btn small" id="resetFilters" type="button">Reset filters</button></div>
+<div class="topic-controls">
+<div class="field"><label for="topicSearch">Search this chapter</label><div class="searchbox"><span aria-hidden="true" class="search-icon">⌕</span><input aria-label="Search topics in this chapter" class="input" id="topicSearch" placeholder="Search topic name…" type="search"/></div></div>
+<div class="field"><label for="sortSelect">Sort topics</label><select class="select" id="sortSelect"><option value="original">Original PDF order</option><option value="count-desc">Most references first</option><option value="count-asc">Fewest references first</option><option value="importance">Highest importance first</option><option value="alphabetical">Alphabetical</option></select></div>
+<div class="field"><label for="filterSelect">Filter topics</label><select class="select" id="filterSelect"><option value="all">All topics</option><option value="high">5 stars · High Yield Important</option><option value="medium">3 stars · Important</option><option value="low">1 star · Lower Priority</option><option value="zero">0 stars · Explicit zero only</option><option value="unknown">Unverified · No years listed</option></select></div>
+<div class="field"><label for="studyFilter">Study checklist</label><select class="select" id="studyFilter"><option value="all">All study states</option><option value="todo">Not marked studied</option><option value="done">Marked studied</option></select></div>
+</div>
+<div class="topic-list" id="topicList"></div>
+</section>
+<footer class="footer"><span>Based on the supplied scanned PDF · Source pages are shown per topic.</span><span>Historical frequency is a study-priority estimate, not a guarantee of future questions.</span></footer>
+</div>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
 <script id="dataset" type="application/json">
 {
   "title": "Zoology Medical Admission High-Yield Analyzer",
